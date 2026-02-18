@@ -264,6 +264,49 @@
   max-width: 400px;
 }
 
+/* Answer buttons (correct / wrong) */
+.answer-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 1.5rem;
+  width: 100%;
+}
+
+.correct-button,
+.wrong-button {
+  flex: 1;
+  max-width: 200px;
+  font-size: 1.1rem;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+}
+
+.correct-button {
+  background-color: #2d6a2d;
+  color: white;
+}
+
+.correct-button:hover {
+  background-color: #1e4a1e;
+}
+
+.wrong-button {
+  background-color: #8b1a1a;
+  color: white;
+}
+
+.wrong-button:hover {
+  background-color: #6b1010;
+}
+
+.flashcard--answered {
+  cursor: default;
+}
+
 
 /* Responsive Design */
 @media (max-width: 768px) {

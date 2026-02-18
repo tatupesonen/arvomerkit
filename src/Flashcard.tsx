@@ -5,38 +5,44 @@ type InsigniaType = 'collar' | 'chest' | 'shoulder' | 'sleeve';
 
 interface FlashcardProps {
   rank: Rank;
-  onNext: () => void;
+  onCorrect: () => void;
+  onWrong: () => void;
   current: number;
   total: number | undefined;
   insigniaType: InsigniaType;
+  showRating: boolean;
 }
 
-function Flashcard({ rank, onNext, current, total, insigniaType }: FlashcardProps) {
+function Flashcard({ rank, onCorrect, onWrong, current, total, insigniaType, showRating }: FlashcardProps) {
   const [showAnswer, setShowAnswer] = useState(false);
 
-  const handleClick = () => {
+  const handleCardClick = () => {
     if (!showAnswer) {
-      // First click: show answer
       setShowAnswer(true);
-    } else {
-      // Second click: go to next card
+    } else if (!showRating) {
+      // Practice mode: second click advances
       setShowAnswer(false);
-      onNext();
+      onCorrect();
     }
+  };
+
+  const handleCorrect = () => {
+    setShowAnswer(false);
+    onCorrect();
+  };
+
+  const handleWrong = () => {
+    setShowAnswer(false);
+    onWrong();
   };
 
   const getInsigniaImage = () => {
     switch (insigniaType) {
-      case 'collar':
-        return rank.collarInsignia;
-      case 'chest':
-        return rank.chestInsignia;
-      case 'shoulder':
-        return rank.shoulderInsignia;
-      case 'sleeve':
-        return rank.sleeveInsignia;
-      default:
-        return rank.collarInsignia;
+      case 'collar': return rank.collarInsignia;
+      case 'chest': return rank.chestInsignia;
+      case 'shoulder': return rank.shoulderInsignia;
+      case 'sleeve': return rank.sleeveInsignia;
+      default: return rank.collarInsignia;
     }
   };
 
@@ -44,7 +50,10 @@ function Flashcard({ rank, onNext, current, total, insigniaType }: FlashcardProp
 
   return (
     <div className="flashcard-container">
-      <div className="flashcard" onClick={handleClick}>
+      <div
+        className={`flashcard${showAnswer ? ' flashcard--answered' : ''}`}
+        onClick={handleCardClick}
+      >
         <div className="flashcard-header">
           <span className="category">{rank.category}</span>
           <span className="progress">
@@ -55,7 +64,6 @@ function Flashcard({ rank, onNext, current, total, insigniaType }: FlashcardProp
         <div className="flashcard-content">
           {!showAnswer ? (
             <>
-              {/* Show image */}
               <div className="insignia-container">
                 <img src={insigniaImage} alt={rank.name} className="insignia-image" />
               </div>
@@ -63,9 +71,15 @@ function Flashcard({ rank, onNext, current, total, insigniaType }: FlashcardProp
             </>
           ) : (
             <>
-              {/* Show answer */}
               <h2 className="rank-name">{rank.name}</h2>
-              <p className="instruction">Klikkaa siirtyäksesi seuraavaan</p>
+              {showRating ? (
+                <div className="answer-buttons" onClick={e => e.stopPropagation()}>
+                  <button className="wrong-button" onClick={handleWrong}>Väärin</button>
+                  <button className="correct-button" onClick={handleCorrect}>Oikein</button>
+                </div>
+              ) : (
+                <p className="instruction">Klikkaa siirtyäksesi seuraavaan</p>
+              )}
             </>
           )}
         </div>

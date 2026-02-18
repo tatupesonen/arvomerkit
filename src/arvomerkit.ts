@@ -36,7 +36,7 @@ export const ranks: Rank[] = [
     name: 'Aliupseerioppilas',
     category: 'Miehistö',
     branch: 'army-airforce',
-    collarInsignia: getImagePath('images/kauluslaatta/Aliupseerioppilas.svg'),
+    // collarInsignia intentionally omitted: identical to Sotamies
     chestInsignia: getImagePath('images/rintalaatta/Aliupseerioppilas.svg')
   },
   {
