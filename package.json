@@ -1,8 +1,15 @@
 {
   "name": "arvomerkit",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
+  "license": "MIT",
+  "author": "Tatu Pesonen",
+  "description": "Opi Suomen puolustusvoimien arvomerkit flashcard-harjoituksilla",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tatupesonen/arvomerkit"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",

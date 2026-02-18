@@ -1,0 +1,15 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle -->
+  <circle cx="256" cy="256" r="256" fill="#3d4321"/>
+
+  <!-- Shield shape -->
+  <path d="M256 100L140 160V260C140 340 180 400 256 440C332 400 372 340 372 260V160L256 100Z" fill="#5a6030" stroke="#f0f0f0" stroke-width="8"/>
+
+  <!-- Star in the center -->
+  <path d="M256 200L268 236H306L275 258L287 294L256 272L225 294L237 258L206 236H244L256 200Z" fill="#f0f0f0"/>
+
+  <!-- Rank stripes -->
+  <rect x="220" y="320" width="72" height="8" rx="2" fill="#f0f0f0"/>
+  <rect x="220" y="335" width="72" height="8" rx="2" fill="#f0f0f0"/>
+  <rect x="220" y="350" width="72" height="8" rx="2" fill="#f0f0f0"/>
+</svg>

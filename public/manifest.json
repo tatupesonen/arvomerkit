@@ -1,0 +1,37 @@
+{
+  "name": "Arvomerkit - Suomen puolustusvoimien arvomerkit",
+  "short_name": "Arvomerkit",
+  "description": "Opi Suomen puolustusvoimien arvomerkit flashcard-harjoituksilla",
+  "start_url": "/arvomerkit/",
+  "scope": "/arvomerkit/",
+  "display": "standalone",
+  "background_color": "#242424",
+  "theme_color": "#3d4321",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/arvomerkit/logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/arvomerkit/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/arvomerkit/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/arvomerkit/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
