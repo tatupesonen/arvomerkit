@@ -2,11 +2,14 @@ export function registerServiceWorker() {
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
       const swUrl = `${import.meta.env.BASE_URL}sw.js`;
+      const scope = import.meta.env.BASE_URL;
+
+      console.log('[App] Registering service worker:', swUrl, 'with scope:', scope);
 
       navigator.serviceWorker
-        .register(swUrl)
+        .register(swUrl, { scope })
         .then((registration) => {
-          console.log('SW registered: ', registration);
+          console.log('[App] SW registered successfully:', registration.scope);
 
           // Check for updates periodically
           setInterval(() => {
