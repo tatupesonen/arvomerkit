@@ -1,5 +1,11 @@
 export type Branch = 'army-airforce' | 'navy';
 
+// Helper function to get correct image path with base URL
+const getImagePath = (path: string) => {
+  const base = import.meta.env.BASE_URL || '/';
+  return `${base}${path}`;
+};
+
 export interface Rank {
   name: string;
   category: 'Miehistö' | 'Aliupseerit' | 'Upseerit';
@@ -16,29 +22,29 @@ export const ranks: Rank[] = [
     name: 'Sotamies',
     category: 'Miehistö',
     branch: 'army-airforce',
-    collarInsignia: '/images/kauluslaatta/Sotamies.svg',
-    chestInsignia: '/images/rintalaatta/Sotamies.svg'
+    collarInsignia: getImagePath('images/kauluslaatta/Sotamies.svg'),
+    chestInsignia: getImagePath('images/rintalaatta/Sotamies.svg')
   },
   {
     name: 'Korpraali',
     category: 'Miehistö',
     branch: 'army-airforce',
-    collarInsignia: '/images/kauluslaatta/Korpraali.svg',
-    chestInsignia: '/images/rintalaatta/Korpraali.svg'
+    collarInsignia: getImagePath('images/kauluslaatta/Korpraali.svg'),
+    chestInsignia: getImagePath('images/rintalaatta/Korpraali.svg')
   },
   {
     name: 'Aliupseerioppilas',
     category: 'Miehistö',
     branch: 'army-airforce',
-    collarInsignia: '/images/kauluslaatta/Aliupseerioppilas.svg',
-    chestInsignia: '/images/rintalaatta/Aliupseerioppilas.svg'
+    collarInsignia: getImagePath('images/kauluslaatta/Aliupseerioppilas.svg'),
+    chestInsignia: getImagePath('images/rintalaatta/Aliupseerioppilas.svg')
   },
   {
     name: 'Alikersantti',
     category: 'Miehistö',
     branch: 'army-airforce',
-    collarInsignia: '/images/kauluslaatta/Alikersantti.svg',
-    chestInsignia: '/images/rintalaatta/Alikersantti.svg'
+    collarInsignia: getImagePath('images/kauluslaatta/Alikersantti.svg'),
+    chestInsignia: getImagePath('images/rintalaatta/Alikersantti.svg')
   },
 
   // Aliupseerit (Non-commissioned Officers) - Army/Air Force
@@ -46,50 +52,50 @@ export const ranks: Rank[] = [
     name: 'Kersantti',
     category: 'Aliupseerit',
     branch: 'army-airforce',
-    collarInsignia: '/images/kauluslaatta/Kersantti.svg',
-    chestInsignia: '/images/rintalaatta/Kersantti.svg'
+    collarInsignia: getImagePath('images/kauluslaatta/Kersantti.svg'),
+    chestInsignia: getImagePath('images/rintalaatta/Kersantti.svg')
   },
   {
     name: 'Upseerioppilas',
     category: 'Aliupseerit',
     branch: 'army-airforce',
-    collarInsignia: '/images/kauluslaatta/Upseerioppilas.svg',
-    chestInsignia: '/images/rintalaatta/Upseerioppilas.svg'
+    collarInsignia: getImagePath('images/kauluslaatta/Upseerioppilas.svg'),
+    chestInsignia: getImagePath('images/rintalaatta/Upseerioppilas.svg')
   },
   {
     name: 'Ylikersantti',
     category: 'Aliupseerit',
     branch: 'army-airforce',
-    collarInsignia: '/images/kauluslaatta/Ylikersantti.svg',
-    chestInsignia: '/images/rintalaatta/Ylikersantti.svg'
+    collarInsignia: getImagePath('images/kauluslaatta/Ylikersantti.svg'),
+    chestInsignia: getImagePath('images/rintalaatta/Ylikersantti.svg')
   },
   {
     name: 'Upseerikokelas',
     category: 'Aliupseerit',
     branch: 'army-airforce',
-    collarInsignia: '/images/kauluslaatta/Upseerikokelas.svg',
-    chestInsignia: '/images/rintalaatta/Upseerikokelas.svg'
+    collarInsignia: getImagePath('images/kauluslaatta/Upseerikokelas.svg'),
+    chestInsignia: getImagePath('images/rintalaatta/Upseerikokelas.svg')
   },
   {
     name: 'Vääpeli',
     category: 'Aliupseerit',
     branch: 'army-airforce',
-    collarInsignia: '/images/kauluslaatta/Vääpeli.svg',
-    chestInsignia: '/images/rintalaatta/Vääpeli.svg'
+    collarInsignia: getImagePath('images/kauluslaatta/Vääpeli.svg'),
+    chestInsignia: getImagePath('images/rintalaatta/Vääpeli.svg')
   },
   {
     name: 'Ylivääpeli',
     category: 'Aliupseerit',
     branch: 'army-airforce',
-    collarInsignia: '/images/kauluslaatta/Ylivääpeli.svg',
-    chestInsignia: '/images/rintalaatta/Ylivääpeli.svg'
+    collarInsignia: getImagePath('images/kauluslaatta/Ylivääpeli.svg'),
+    chestInsignia: getImagePath('images/rintalaatta/Ylivääpeli.svg')
   },
   {
     name: 'Sotilasmestari',
     category: 'Aliupseerit',
     branch: 'army-airforce',
-    collarInsignia: '/images/kauluslaatta/Sotilasmestari.svg',
-    chestInsignia: '/images/rintalaatta/Sotilasmestari.svg'
+    collarInsignia: getImagePath('images/kauluslaatta/Sotilasmestari.svg'),
+    chestInsignia: getImagePath('images/rintalaatta/Sotilasmestari.svg')
   },
 
   // Upseerit (Officers) - Army/Air Force
@@ -97,78 +103,78 @@ export const ranks: Rank[] = [
     name: 'Vänrikki',
     category: 'Upseerit',
     branch: 'army-airforce',
-    collarInsignia: '/images/kauluslaatta/Vänrikki.svg',
-    chestInsignia: '/images/rintalaatta/Vänrikki.svg'
+    collarInsignia: getImagePath('images/kauluslaatta/Vänrikki.svg'),
+    chestInsignia: getImagePath('images/rintalaatta/Vänrikki.svg')
   },
   {
     name: 'Luutnantti',
     category: 'Upseerit',
     branch: 'army-airforce',
-    collarInsignia: '/images/kauluslaatta/Luutnantti.svg',
-    chestInsignia: '/images/rintalaatta/Luutnantti.svg'
+    collarInsignia: getImagePath('images/kauluslaatta/Luutnantti.svg'),
+    chestInsignia: getImagePath('images/rintalaatta/Luutnantti.svg')
   },
   {
     name: 'Yliluutnantti',
     category: 'Upseerit',
     branch: 'army-airforce',
-    collarInsignia: '/images/kauluslaatta/Yliluutnantti.svg',
-    chestInsignia: '/images/rintalaatta/Yliluutnantti.svg'
+    collarInsignia: getImagePath('images/kauluslaatta/Yliluutnantti.svg'),
+    chestInsignia: getImagePath('images/rintalaatta/Yliluutnantti.svg')
   },
   {
     name: 'Kapteeni',
     category: 'Upseerit',
     branch: 'army-airforce',
-    collarInsignia: '/images/kauluslaatta/Kapteeni.svg',
-    chestInsignia: '/images/rintalaatta/Kapteeni.svg'
+    collarInsignia: getImagePath('images/kauluslaatta/Kapteeni.svg'),
+    chestInsignia: getImagePath('images/rintalaatta/Kapteeni.svg')
   },
   {
     name: 'Majuri',
     category: 'Upseerit',
     branch: 'army-airforce',
-    collarInsignia: '/images/kauluslaatta/Majuri.svg',
-    chestInsignia: '/images/rintalaatta/Majuri.svg'
+    collarInsignia: getImagePath('images/kauluslaatta/Majuri.svg'),
+    chestInsignia: getImagePath('images/rintalaatta/Majuri.svg')
   },
   {
     name: 'Everstiluutnantti',
     category: 'Upseerit',
     branch: 'army-airforce',
-    collarInsignia: '/images/kauluslaatta/Everstiluutnantti.svg',
-    chestInsignia: '/images/rintalaatta/Everstiluutnantti.svg'
+    collarInsignia: getImagePath('images/kauluslaatta/Everstiluutnantti.svg'),
+    chestInsignia: getImagePath('images/rintalaatta/Everstiluutnantti.svg')
   },
   {
     name: 'Eversti',
     category: 'Upseerit',
     branch: 'army-airforce',
-    collarInsignia: '/images/kauluslaatta/Eversti.svg',
-    chestInsignia: '/images/rintalaatta/Eversti.svg'
+    collarInsignia: getImagePath('images/kauluslaatta/Eversti.svg'),
+    chestInsignia: getImagePath('images/rintalaatta/Eversti.svg')
   },
   {
     name: 'Prikaatikenraali',
     category: 'Upseerit',
     branch: 'army-airforce',
-    collarInsignia: '/images/kauluslaatta/Prikaatikenraali.svg',
-    chestInsignia: '/images/rintalaatta/Prikaatikenraali.svg'
+    collarInsignia: getImagePath('images/kauluslaatta/Prikaatikenraali.svg'),
+    chestInsignia: getImagePath('images/rintalaatta/Prikaatikenraali.svg')
   },
   {
     name: 'Kenraalimajuri',
     category: 'Upseerit',
     branch: 'army-airforce',
-    collarInsignia: '/images/kauluslaatta/Kenraalimajuri.svg',
-    chestInsignia: '/images/rintalaatta/Kenraalimajuri.svg'
+    collarInsignia: getImagePath('images/kauluslaatta/Kenraalimajuri.svg'),
+    chestInsignia: getImagePath('images/rintalaatta/Kenraalimajuri.svg')
   },
   {
     name: 'Kenraaliluutnantti',
     category: 'Upseerit',
     branch: 'army-airforce',
-    collarInsignia: '/images/kauluslaatta/Kenraaliluutnantti.svg',
-    chestInsignia: '/images/rintalaatta/Kenraaliluutnantti.svg'
+    collarInsignia: getImagePath('images/kauluslaatta/Kenraaliluutnantti.svg'),
+    chestInsignia: getImagePath('images/rintalaatta/Kenraaliluutnantti.svg')
   },
   {
     name: 'Kenraali',
     category: 'Upseerit',
     branch: 'army-airforce',
-    collarInsignia: '/images/kauluslaatta/Kenraali.svg',
-    chestInsignia: '/images/rintalaatta/Kenraali.svg'
+    collarInsignia: getImagePath('images/kauluslaatta/Kenraali.svg'),
+    chestInsignia: getImagePath('images/rintalaatta/Kenraali.svg')
   },
 
   // Merivoimat (Navy) - Miehistö
@@ -176,13 +182,13 @@ export const ranks: Rank[] = [
     name: 'Matruusi',
     category: 'Miehistö',
     branch: 'navy',
-    sleeveInsignia: '/images/hihalaatta/Matruusi.svg'
+    sleeveInsignia: getImagePath('images/hihalaatta/Matruusi.svg')
   },
   {
     name: 'Ylimatruusi',
     category: 'Miehistö',
     branch: 'navy',
-    sleeveInsignia: '/images/hihalaatta/Ylimatruusi.svg'
+    sleeveInsignia: getImagePath('images/hihalaatta/Ylimatruusi.svg')
   },
 
   // Merivoimat (Navy) - Aliupseerit
@@ -190,19 +196,19 @@ export const ranks: Rank[] = [
     name: 'Pursimies',
     category: 'Aliupseerit',
     branch: 'navy',
-    sleeveInsignia: '/images/hihalaatta/Pursimies.svg'
+    sleeveInsignia: getImagePath('images/hihalaatta/Pursimies.svg')
   },
   {
     name: 'Ylipursimies',
     category: 'Aliupseerit',
     branch: 'navy',
-    sleeveInsignia: '/images/hihalaatta/Ylipursimies.svg'
+    sleeveInsignia: getImagePath('images/hihalaatta/Ylipursimies.svg')
   },
   {
     name: 'Sotilasmestari',
     category: 'Aliupseerit',
     branch: 'navy',
-    sleeveInsignia: '/images/hihalaatta/Sotilasmestari_l.svg'
+    sleeveInsignia: getImagePath('images/hihalaatta/Sotilasmestari_l.svg')
   },
 
   // Merivoimat (Navy) - Upseerit
@@ -210,66 +216,66 @@ export const ranks: Rank[] = [
     name: 'Aliluutnantti',
     category: 'Upseerit',
     branch: 'navy',
-    shoulderInsignia: '/images/olkalaatta/Aliluutnantti.svg'
+    shoulderInsignia: getImagePath('images/olkalaatta/Aliluutnantti.svg')
   },
   {
     name: 'Luutnantti',
     category: 'Upseerit',
     branch: 'navy',
-    shoulderInsignia: '/images/olkalaatta/Luutnantti_l.svg'
+    shoulderInsignia: getImagePath('images/olkalaatta/Luutnantti_l.svg')
   },
   {
     name: 'Yliluutnantti',
     category: 'Upseerit',
     branch: 'navy',
-    shoulderInsignia: '/images/olkalaatta/Yliluutnantti_l.svg'
+    shoulderInsignia: getImagePath('images/olkalaatta/Yliluutnantti_l.svg')
   },
   {
     name: 'Kapteeniluutnantti',
     category: 'Upseerit',
     branch: 'navy',
-    shoulderInsignia: '/images/olkalaatta/Kapteeniluutnantti.svg'
+    shoulderInsignia: getImagePath('images/olkalaatta/Kapteeniluutnantti.svg')
   },
   {
     name: 'Komentajakapteeni',
     category: 'Upseerit',
     branch: 'navy',
-    shoulderInsignia: '/images/olkalaatta/Komentajakapteeni.svg'
+    shoulderInsignia: getImagePath('images/olkalaatta/Komentajakapteeni.svg')
   },
   {
     name: 'Komentaja',
     category: 'Upseerit',
     branch: 'navy',
-    shoulderInsignia: '/images/olkalaatta/Komentaja.svg'
+    shoulderInsignia: getImagePath('images/olkalaatta/Komentaja.svg')
   },
   {
     name: 'Kommodori',
     category: 'Upseerit',
     branch: 'navy',
-    shoulderInsignia: '/images/olkalaatta/Kommodori.svg'
+    shoulderInsignia: getImagePath('images/olkalaatta/Kommodori.svg')
   },
   {
     name: 'Lippueamiraali',
     category: 'Upseerit',
     branch: 'navy',
-    shoulderInsignia: '/images/olkalaatta/Lippueamiraali.svg'
+    shoulderInsignia: getImagePath('images/olkalaatta/Lippueamiraali.svg')
   },
   {
     name: 'Kontra-amiraali',
     category: 'Upseerit',
     branch: 'navy',
-    shoulderInsignia: '/images/olkalaatta/Kontra-amiraali.svg'
+    shoulderInsignia: getImagePath('images/olkalaatta/Kontra-amiraali.svg')
   },
   {
     name: 'Vara-amiraali',
     category: 'Upseerit',
     branch: 'navy',
-    shoulderInsignia: '/images/olkalaatta/Vara-amiraali.svg'
+    shoulderInsignia: getImagePath('images/olkalaatta/Vara-amiraali.svg')
   },
   {
     name: 'Amiraali',
     category: 'Upseerit',
     branch: 'navy',
-    shoulderInsignia: '/images/olkalaatta/Amiraali.svg'
+    shoulderInsignia: getImagePath('images/olkalaatta/Amiraali.svg')
   },
 ];

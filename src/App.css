@@ -62,23 +62,24 @@
   align-items: center;
   gap: 1rem;
   padding: 1rem 1.5rem;
-  background: rgba(100, 108, 255, 0.1);
-  border: 2px solid rgba(100, 108, 255, 0.3);
+  background: rgba(61, 67, 33, 0.1);
+  border: 2px solid rgba(61, 67, 33, 0.3);
   border-radius: 12px;
   cursor: pointer;
   user-select: none;
 }
 
 .checkbox-label:hover {
-  background: rgba(100, 108, 255, 0.2);
-  border-color: rgba(100, 108, 255, 0.5);
+  background: rgba(61, 67, 33, 0.2);
+  border-color: rgba(61, 67, 33, 0.5);
 }
 
-.checkbox-label input[type="checkbox"] {
+.checkbox-label input[type="checkbox"],
+.checkbox-label input[type="radio"] {
   width: 24px;
   height: 24px;
   cursor: pointer;
-  accent-color: #646cff;
+  accent-color: #3d4321;
 }
 
 .checkbox-text {
@@ -105,12 +106,12 @@
 }
 
 .primary-button {
-  background-color: #646cff;
+  background-color: #3d4321;
   color: white;
 }
 
 .primary-button:hover:not(:disabled) {
-  background-color: #535bf2;
+  background-color: #2d321a;
 }
 
 .primary-button:disabled {
@@ -121,12 +122,12 @@
 
 .secondary-button {
   background-color: transparent;
-  border: 2px solid #646cff;
-  color: #646cff;
+  border: 2px solid #3d4321;
+  color: #3d4321;
 }
 
 .secondary-button:hover {
-  background-color: rgba(100, 108, 255, 0.1);
+  background-color: rgba(61, 67, 33, 0.1);
 }
 
 /* Exit Button */
@@ -168,7 +169,7 @@
 }
 
 .flashcard {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: #3a3a3a;
   border-radius: 20px;
   padding: 2rem;
   min-height: 500px;
