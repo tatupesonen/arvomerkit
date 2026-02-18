@@ -1,8 +1,8 @@
 const CACHE_VERSION = '1.0.0';
 const CACHE_NAME = `arvomerkit-v${CACHE_VERSION}`;
 
-// Core assets to cache immediately
-const CORE_ASSETS = [
+// Core app shell assets
+const APP_SHELL = [
   './',
   './index.html',
   './manifest.json',
@@ -11,45 +11,124 @@ const CORE_ASSETS = [
   './icon-512.png',
 ];
 
-// Install event - cache core assets and precache images
+// All rank insignia images to precache
+const RANK_IMAGES = [
+  // Maavoimat/Ilmavoimat - Kauluslaatat
+  'images/kauluslaatta/Sotamies.svg',
+  'images/kauluslaatta/Korpraali.svg',
+  'images/kauluslaatta/Aliupseerioppilas.svg',
+  'images/kauluslaatta/Alikersantti.svg',
+  'images/kauluslaatta/Kersantti.svg',
+  'images/kauluslaatta/Upseerioppilas.svg',
+  'images/kauluslaatta/Ylikersantti.svg',
+  'images/kauluslaatta/Upseerikokelas.svg',
+  'images/kauluslaatta/Vääpeli.svg',
+  'images/kauluslaatta/Ylivääpeli.svg',
+  'images/kauluslaatta/Sotilasmestari.svg',
+  'images/kauluslaatta/Vänrikki.svg',
+  'images/kauluslaatta/Luutnantti.svg',
+  'images/kauluslaatta/Yliluutnantti.svg',
+  'images/kauluslaatta/Kapteeni.svg',
+  'images/kauluslaatta/Majuri.svg',
+  'images/kauluslaatta/Everstiluutnantti.svg',
+  'images/kauluslaatta/Eversti.svg',
+  'images/kauluslaatta/Prikaatikenraali.svg',
+  'images/kauluslaatta/Kenraalimajuri.svg',
+  'images/kauluslaatta/Kenraaliluutnantti.svg',
+  'images/kauluslaatta/Kenraali.svg',
+
+  // Maavoimat/Ilmavoimat - Rintalaatat
+  'images/rintalaatta/Sotamies.svg',
+  'images/rintalaatta/Korpraali.svg',
+  'images/rintalaatta/Aliupseerioppilas.svg',
+  'images/rintalaatta/Alikersantti.svg',
+  'images/rintalaatta/Kersantti.svg',
+  'images/rintalaatta/Upseerioppilas.svg',
+  'images/rintalaatta/Ylikersantti.svg',
+  'images/rintalaatta/Upseerikokelas.svg',
+  'images/rintalaatta/Vääpeli.svg',
+  'images/rintalaatta/Ylivääpeli.svg',
+  'images/rintalaatta/Sotilasmestari.svg',
+  'images/rintalaatta/Vänrikki.svg',
+  'images/rintalaatta/Luutnantti.svg',
+  'images/rintalaatta/Yliluutnantti.svg',
+  'images/rintalaatta/Kapteeni.svg',
+  'images/rintalaatta/Majuri.svg',
+  'images/rintalaatta/Everstiluutnantti.svg',
+  'images/rintalaatta/Eversti.svg',
+  'images/rintalaatta/Prikaatikenraali.svg',
+  'images/rintalaatta/Kenraalimajuri.svg',
+  'images/rintalaatta/Kenraaliluutnantti.svg',
+  'images/rintalaatta/Kenraali.svg',
+
+  // Merivoimat - Hihalaatat (Miehistö & Aliupseerit)
+  'images/hihalaatta/Matruusi.svg',
+  'images/hihalaatta/Ylimatruusi.svg',
+  'images/hihalaatta/Pursimies.svg',
+  'images/hihalaatta/Ylipursimies.svg',
+  'images/hihalaatta/Sotilasmestari_l.svg',
+
+  // Merivoimat - Olkalaatat (Upseerit)
+  'images/olkalaatta/Aliluutnantti.svg',
+  'images/olkalaatta/Luutnantti_l.svg',
+  'images/olkalaatta/Yliluutnantti_l.svg',
+  'images/olkalaatta/Kapteeniluutnantti.svg',
+  'images/olkalaatta/Komentajakapteeni.svg',
+  'images/olkalaatta/Komentaja.svg',
+  'images/olkalaatta/Kommodori.svg',
+  'images/olkalaatta/Lippueamiraali.svg',
+  'images/olkalaatta/Kontra-amiraali.svg',
+  'images/olkalaatta/Vara-amiraali.svg',
+  'images/olkalaatta/Amiraali.svg',
+];
+
+// Combine all resources to precache
+const PRECACHE_RESOURCES = [...APP_SHELL, ...RANK_IMAGES];
+
+// Install event - precache all resources
 self.addEventListener('install', (event) => {
+  console.log('[ServiceWorker] Install');
+
   event.waitUntil(
     caches.open(CACHE_NAME)
-      .then(async (cache) => {
-        // Cache core assets
-        await cache.addAll(CORE_ASSETS);
-
-        // Precache all images
-        const imagePatterns = [
-          'images/kauluslaatta/',
-          'images/rintalaatta/',
-          'images/hihalaatta/',
-          'images/olkalaatta/',
-        ];
-
-        // This will be populated by the build process
-        return cache;
+      .then((cache) => {
+        console.log('[ServiceWorker] Caching app shell and images');
+        return cache.addAll(PRECACHE_RESOURCES);
       })
-      .then(() => self.skipWaiting())
+      .then(() => {
+        console.log('[ServiceWorker] All resources cached');
+        return self.skipWaiting();
+      })
+      .catch((error) => {
+        console.error('[ServiceWorker] Precaching failed:', error);
+      })
   );
 });
 
 // Activate event - clean up old caches
 self.addEventListener('activate', (event) => {
+  console.log('[ServiceWorker] Activate');
+
   event.waitUntil(
-    caches.keys().then((cacheNames) => {
-      return Promise.all(
-        cacheNames.map((cacheName) => {
-          if (cacheName !== CACHE_NAME) {
-            return caches.delete(cacheName);
-          }
-        })
-      );
-    }).then(() => self.clients.claim())
+    caches.keys()
+      .then((cacheNames) => {
+        return Promise.all(
+          cacheNames.map((cacheName) => {
+            if (cacheName !== CACHE_NAME) {
+              console.log('[ServiceWorker] Removing old cache:', cacheName);
+              return caches.delete(cacheName);
+            }
+          })
+        );
+      })
+      .then(() => {
+        console.log('[ServiceWorker] Claiming clients');
+        return self.clients.claim();
+      })
   );
 });
 
-// Fetch event - cache-first strategy for offline support
+// Fetch event - cache first, then network
 self.addEventListener('fetch', (event) => {
   event.respondWith(
     caches.match(event.request)
@@ -59,35 +138,33 @@ self.addEventListener('fetch', (event) => {
           return cachedResponse;
         }
 
-        // Otherwise fetch from network
-        return fetch(event.request).then((response) => {
-          // Don't cache non-GET requests or non-successful responses
-          if (event.request.method !== 'GET' || !response || response.status !== 200) {
-            return response;
-          }
+        // Otherwise, fetch from network
+        console.log('[ServiceWorker] Fetching resource:', event.request.url);
 
-          // Check if it's a same-origin request or if we should cache it
-          const shouldCache =
-            response.type === 'basic' ||
-            event.request.url.includes('/arvomerkit/') ||
-            event.request.url.includes('images/');
+        return fetch(event.request)
+          .then((response) => {
+            // Don't cache if not a valid response
+            if (!response || response.status !== 200 || response.type !== 'basic') {
+              return response;
+            }
 
-          if (shouldCache) {
+            // Clone the response (can only be consumed once)
             const responseToCache = response.clone();
-            caches.open(CACHE_NAME).then((cache) => {
-              cache.put(event.request, responseToCache);
-            });
-          }
 
-          return response;
-        }).catch(() => {
-          // If network fails and we're requesting an HTML page, return cached index
-          if (event.request.headers.get('accept').includes('text/html')) {
-            return caches.match('./index.html');
-          }
-          // Otherwise throw error
-          throw new Error('Network request failed and no cache available');
-        });
+            // Add to cache for future use
+            caches.open(CACHE_NAME)
+              .then((cache) => {
+                cache.put(event.request, responseToCache);
+              });
+
+            return response;
+          })
+          .catch(() => {
+            // Network failed, try to return the app shell
+            if (event.request.mode === 'navigate') {
+              return caches.match('./index.html');
+            }
+          });
       })
   );
 });
