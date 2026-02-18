@@ -1,10 +1,84 @@
-const CACHE_VERSION = '1.0.2';
+const CACHE_VERSION = '1.0.3';
 const CACHE_NAME = `arvomerkit-v${CACHE_VERSION}`;
 
-// Install event - skip waiting to activate immediately
+const BASE = '/arvomerkit/';
+
+const RANK_IMAGES = [
+  // kauluslaatta
+  'images/kauluslaatta/Sotamies.svg',
+  'images/kauluslaatta/Korpraali.svg',
+  'images/kauluslaatta/Aliupseerioppilas.svg',
+  'images/kauluslaatta/Alikersantti.svg',
+  'images/kauluslaatta/Kersantti.svg',
+  'images/kauluslaatta/Upseerioppilas.svg',
+  'images/kauluslaatta/Ylikersantti.svg',
+  'images/kauluslaatta/Upseerikokelas.svg',
+  'images/kauluslaatta/Vääpeli.svg',
+  'images/kauluslaatta/Ylivääpeli.svg',
+  'images/kauluslaatta/Sotilasmestari.svg',
+  'images/kauluslaatta/Vänrikki.svg',
+  'images/kauluslaatta/Luutnantti.svg',
+  'images/kauluslaatta/Yliluutnantti.svg',
+  'images/kauluslaatta/Kapteeni.svg',
+  'images/kauluslaatta/Majuri.svg',
+  'images/kauluslaatta/Everstiluutnantti.svg',
+  'images/kauluslaatta/Eversti.svg',
+  'images/kauluslaatta/Prikaatikenraali.svg',
+  'images/kauluslaatta/Kenraalimajuri.svg',
+  'images/kauluslaatta/Kenraaliluutnantti.svg',
+  'images/kauluslaatta/Kenraali.svg',
+  // rintalaatta
+  'images/rintalaatta/Sotamies.svg',
+  'images/rintalaatta/Korpraali.svg',
+  'images/rintalaatta/Aliupseerioppilas.svg',
+  'images/rintalaatta/Alikersantti.svg',
+  'images/rintalaatta/Kersantti.svg',
+  'images/rintalaatta/Upseerioppilas.svg',
+  'images/rintalaatta/Ylikersantti.svg',
+  'images/rintalaatta/Upseerikokelas.svg',
+  'images/rintalaatta/Vääpeli.svg',
+  'images/rintalaatta/Ylivääpeli.svg',
+  'images/rintalaatta/Sotilasmestari.svg',
+  'images/rintalaatta/Vänrikki.svg',
+  'images/rintalaatta/Luutnantti.svg',
+  'images/rintalaatta/Yliluutnantti.svg',
+  'images/rintalaatta/Kapteeni.svg',
+  'images/rintalaatta/Majuri.svg',
+  'images/rintalaatta/Everstiluutnantti.svg',
+  'images/rintalaatta/Eversti.svg',
+  'images/rintalaatta/Prikaatikenraali.svg',
+  'images/rintalaatta/Kenraalimajuri.svg',
+  'images/rintalaatta/Kenraaliluutnantti.svg',
+  'images/rintalaatta/Kenraali.svg',
+  // hihalaatta (navy sleeve)
+  'images/hihalaatta/Matruusi.svg',
+  'images/hihalaatta/Ylimatruusi.svg',
+  'images/hihalaatta/Pursimies.svg',
+  'images/hihalaatta/Ylipursimies.svg',
+  'images/hihalaatta/Sotilasmestari_l.svg',
+  // olkalaatta (navy shoulder)
+  'images/olkalaatta/Aliluutnantti.svg',
+  'images/olkalaatta/Luutnantti_l.svg',
+  'images/olkalaatta/Yliluutnantti_l.svg',
+  'images/olkalaatta/Kapteeniluutnantti.svg',
+  'images/olkalaatta/Komentajakapteeni.svg',
+  'images/olkalaatta/Komentaja.svg',
+  'images/olkalaatta/Kommodori.svg',
+  'images/olkalaatta/Lippueamiraali.svg',
+  'images/olkalaatta/Kontra-amiraali.svg',
+  'images/olkalaatta/Vara-amiraali.svg',
+  'images/olkalaatta/Amiraali.svg',
+].map((path) => BASE + path);
+
+// Install event - precache all rank images
 self.addEventListener('install', (event) => {
   console.log('[ServiceWorker] Install');
-  self.skipWaiting();
+  event.waitUntil(
+    caches.open(CACHE_NAME).then((cache) => {
+      console.log('[ServiceWorker] Precaching rank images');
+      return cache.addAll(RANK_IMAGES);
+    }).then(() => self.skipWaiting())
+  );
 });
 
 // Activate event - clean up old caches and take control
