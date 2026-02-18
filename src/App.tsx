@@ -6,6 +6,7 @@ import {
   loadSRData, saveSRData, updateCardState, isDue, getCardKey,
   type SRData,
 } from './spaced-repetition'
+import { ui, loadLanguage, saveLanguage, type Language } from './i18n'
 
 type InsigniaType = 'collar' | 'chest' | 'shoulder' | 'sleeve';
 type Screen = 'start' | 'study' | 'finish';
@@ -25,6 +26,9 @@ function App() {
   const [sessionQueue, setSessionQueue] = useState<SessionCard[]>([])
   const [sessionStats, setSessionStats] = useState({ correct: 0, wrong: 0 })
   const [sessionMode, setSessionMode] = useState<SessionMode>('review')
+  const [language, setLanguage] = useState<Language>(() => loadLanguage())
+
+  const t = ui[language]
 
   const branchRanks = useMemo(
     () => ranks.filter(r => r.branch === selectedBranch),
@@ -125,14 +129,33 @@ function App() {
     );
   };
 
+  const handleLanguageChange = (lang: Language) => {
+    setLanguage(lang);
+    saveLanguage(lang);
+  };
+
+  const languageSwitcher = (
+    <div className="language-switcher">
+      {(['fi', 'sv', 'en'] as Language[]).map(lang => (
+        <button
+          key={lang}
+          className={`lang-button${language === lang ? ' lang-button--active' : ''}`}
+          onClick={() => handleLanguageChange(lang)}
+        >
+          {lang.toUpperCase()}
+        </button>
+      ))}
+    </div>
+  );
+
   if (screen === 'finish') {
     return (
       <div className="app">
         <div className="finish-screen">
-          <h1>Hienoa!</h1>
-          <p>Kertasit {sessionStats.correct} arvomerkkiä oikein.</p>
+          <h1>{t.great}</h1>
+          <p>{t.reviewed(sessionStats.correct)}</p>
           {sessionStats.wrong > 0 && (
-            <p className="info">Epäonnistumisia: {sessionStats.wrong}</p>
+            <p className="info">{t.failures(sessionStats.wrong)}</p>
           )}
           <div className="buttons">
             <button
@@ -140,13 +163,14 @@ function App() {
               onClick={() => start('review')}
               disabled={selectedTypes.length === 0 || dueCount === 0}
             >
-              {dueCount > 0 ? `Kertaa (${dueCount} kpl)` : 'Ei kertattavia'}
+              {dueCount > 0 ? t.reviewCount(dueCount) : t.noReviewable}
             </button>
             <button className="secondary-button" onClick={() => setScreen('start')}>
-              Takaisin alkuun
+              {t.backToStart}
             </button>
           </div>
         </div>
+        {languageSwitcher}
       </div>
     )
   }
@@ -157,7 +181,7 @@ function App() {
     return (
       <div className="app">
         <button className="exit-button" onClick={() => setScreen('start')}>
-          Lopeta
+          {t.quit}
         </button>
         <Flashcard
           rank={currentCard.rank}
@@ -167,7 +191,9 @@ function App() {
           total={sessionMode === 'review' ? total : undefined}
           insigniaType={currentCard.insigniaType}
           showRating={sessionMode === 'review'}
+          language={language}
         />
+        {languageSwitcher}
       </div>
     )
   }
@@ -175,12 +201,12 @@ function App() {
   return (
     <div className="app">
       <div className="start-screen">
-        <h1>Arvomerkit</h1>
-        <p className="description">Opi Puolustusvoimien arvomerkit.</p>
-          <p className="hint">Kun olet kertaustilassa, yritä arvata arvomerkki ennen kuin klikkaat tarkistukseen. Paina <strong>"Oikein"</strong> vain jos tiesit vastauksen. Muuten paina <strong>"Väärin"</strong>.</p>
+        <h1>{t.title}</h1>
+        <p className="description">{t.description}</p>
+        <p className="hint">{t.hint}</p>
 
         <div className="insignia-type-selection">
-          <h2 className="selection-title">Valitse puolustushaara:</h2>
+          <h2 className="selection-title">{t.selectBranch}</h2>
           <div className="checkbox-group">
             <label className="checkbox-label">
               <input
@@ -188,12 +214,11 @@ function App() {
                 checked={selectedBranch === 'army-airforce'}
                 onChange={() => {
                   setSelectedBranch('army-airforce')
-
                   setSelectedTypes(['collar'])
                 }}
               />
               <span className="checkbox-text">
-                <span className="checkbox-name">Maavoimat & Ilmavoimat</span>
+                <span className="checkbox-name">{t.armyAirforce}</span>
               </span>
             </label>
             <label className="checkbox-label">
@@ -206,12 +231,12 @@ function App() {
                 }}
               />
               <span className="checkbox-text">
-                <span className="checkbox-name">Merivoimat</span>
+                <span className="checkbox-name">{t.navy}</span>
               </span>
             </label>
           </div>
 
-          <h2 className="selection-title">Valitse harjoiteltavat tyypit:</h2>
+          <h2 className="selection-title">{t.selectTypes}</h2>
           {selectedBranch === 'army-airforce' ? (
             <div className="checkbox-group">
               <label className="checkbox-label">
@@ -221,7 +246,7 @@ function App() {
                   onChange={() => toggleType('collar')}
                 />
                 <span className="checkbox-text">
-                  <span className="checkbox-name">Kauluslaatat</span>
+                  <span className="checkbox-name">{t.collar}</span>
                 </span>
               </label>
               <label className="checkbox-label">
@@ -231,7 +256,7 @@ function App() {
                   onChange={() => toggleType('chest')}
                 />
                 <span className="checkbox-text">
-                  <span className="checkbox-name">Rintalaatat</span>
+                  <span className="checkbox-name">{t.chest}</span>
                 </span>
               </label>
             </div>
@@ -244,7 +269,7 @@ function App() {
                   onChange={() => toggleType('shoulder')}
                 />
                 <span className="checkbox-text">
-                  <span className="checkbox-name">Olkalaatat</span>
+                  <span className="checkbox-name">{t.shoulder}</span>
                 </span>
               </label>
               <label className="checkbox-label">
@@ -254,7 +279,7 @@ function App() {
                   onChange={() => toggleType('sleeve')}
                 />
                 <span className="checkbox-text">
-                  <span className="checkbox-name">Hihalaatat</span>
+                  <span className="checkbox-name">{t.sleeve}</span>
                 </span>
               </label>
             </div>
@@ -267,23 +292,22 @@ function App() {
             onClick={() => start('review')}
             disabled={selectedTypes.length === 0 || dueCount === 0}
           >
-            Kertaa ({dueCount} kpl)
+            {t.reviewCount(dueCount)}
           </button>
           <button
             className="secondary-button"
             onClick={() => start('practice')}
             disabled={selectedTypes.length === 0}
           >
-            Vapaa harjoittelu
+            {t.practice}
           </button>
         </div>
 
         {dueCount === 0 && (
-          <p className="info">
-            Ei kertattavia tänään. Harjoittele vapaasti tai palaa myöhemmin.
-          </p>
+          <p className="info">{t.noDueCards}</p>
         )}
       </div>
+      {languageSwitcher}
     </div>
   )
 }

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { Rank } from './arvomerkit';
+import { ui, getRankName, getCategoryName, type Language } from './i18n';
 
 type InsigniaType = 'collar' | 'chest' | 'shoulder' | 'sleeve';
 
@@ -11,10 +12,12 @@ interface FlashcardProps {
   total: number | undefined;
   insigniaType: InsigniaType;
   showRating: boolean;
+  language: Language;
 }
 
-function Flashcard({ rank, onCorrect, onWrong, current, total, insigniaType, showRating }: FlashcardProps) {
+function Flashcard({ rank, onCorrect, onWrong, current, total, insigniaType, showRating, language }: FlashcardProps) {
   const [showAnswer, setShowAnswer] = useState(false);
+  const t = ui[language];
 
   const handleCardClick = () => {
     if (!showAnswer) {
@@ -55,7 +58,7 @@ function Flashcard({ rank, onCorrect, onWrong, current, total, insigniaType, sho
         onClick={handleCardClick}
       >
         <div className="flashcard-header">
-          <span className="category">{rank.category}</span>
+          <span className="category">{getCategoryName(rank.category, language)}</span>
           <span className="progress">
             {total !== undefined ? `${current} / ${total}` : `#${current}`}
           </span>
@@ -67,18 +70,18 @@ function Flashcard({ rank, onCorrect, onWrong, current, total, insigniaType, sho
               <div className="insignia-container">
                 <img src={insigniaImage} alt={rank.name} className="insignia-image" />
               </div>
-              <p className="instruction">Arvaa arvomerkki ja klikkaa tarkistaaksesi</p>
+              <p className="instruction">{t.guessInstruction}</p>
             </>
           ) : (
             <>
-              <h2 className="rank-name">{rank.name}</h2>
+              <h2 className="rank-name">{getRankName(rank.name, rank.branch, language)}</h2>
               {showRating ? (
                 <div className="answer-buttons" onClick={e => e.stopPropagation()}>
-                  <button className="wrong-button" onClick={handleWrong}>Väärin</button>
-                  <button className="correct-button" onClick={handleCorrect}>Oikein</button>
+                  <button className="wrong-button" onClick={handleWrong}>{t.wrong}</button>
+                  <button className="correct-button" onClick={handleCorrect}>{t.correct}</button>
                 </div>
               ) : (
-                <p className="instruction">Klikkaa siirtyäksesi seuraavaan</p>
+                <p className="instruction">{t.nextInstruction}</p>
               )}
             </>
           )}
