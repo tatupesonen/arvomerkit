@@ -1,7 +1,7 @@
 {
-  "name": "Arvomerkit - Suomen puolustusvoimien arvomerkit",
+  "name": "Arvomerkit - Puolustusvoimien arvomerkit",
   "short_name": "Arvomerkit",
-  "description": "Opi Suomen puolustusvoimien arvomerkit flashcard-harjoituksilla",
+  "description": "Opi Puolustusvoimien arvomerkit",
   "start_url": ".",
   "scope": ".",
   "display": "standalone",

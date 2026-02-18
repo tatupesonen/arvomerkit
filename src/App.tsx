@@ -62,8 +62,7 @@ function App() {
         <div className="start-screen">
           <h1>Arvomerkit</h1>
           <p className="description">
-            Opi Suomen puolustusvoimien arvomerkit flashcard-harjoituksilla.
-            Näet arvomerkin ja harjoittelet sanomalla sen nimen ääneen.
+            Opi Puolustusvoimien arvomerkit.
           </p>
           <div className="insignia-type-selection">
             <h2 className="selection-title">Valitse puolustushaara:</h2>
