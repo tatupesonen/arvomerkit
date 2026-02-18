@@ -177,6 +177,7 @@ function App() {
       <div className="start-screen">
         <h1>Arvomerkit</h1>
         <p className="description">Opi Puolustusvoimien arvomerkit.</p>
+          <p className="hint">Kun olet kertaustilassa, yritä arvata arvomerkki ennen kuin klikkaat tarkistukseen. Paina <strong>"Oikein"</strong> vain jos tiesit vastauksen. Muuten paina <strong>"Väärin"</strong>.</p>
 
         <div className="insignia-type-selection">
           <h2 className="selection-title">Valitse puolustushaara:</h2>
@@ -187,6 +188,7 @@ function App() {
                 checked={selectedBranch === 'army-airforce'}
                 onChange={() => {
                   setSelectedBranch('army-airforce')
+
                   setSelectedTypes(['collar'])
                 }}
               />
