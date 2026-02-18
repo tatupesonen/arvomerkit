@@ -130,7 +130,7 @@
 .secondary-button {
   background-color: transparent;
   border: 2px solid #3d4321;
-  color: #3d4321;
+  color: white;
 }
 
 .secondary-button:hover {
