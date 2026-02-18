@@ -39,6 +39,13 @@ function Flashcard({ rank, onCorrect, onWrong, current, total, insigniaType, sho
     onWrong();
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      handleCardClick();
+    }
+  };
+
   const getInsigniaImage = () => {
     switch (insigniaType) {
       case 'collar': return rank.collarInsignia;
@@ -51,15 +58,26 @@ function Flashcard({ rank, onCorrect, onWrong, current, total, insigniaType, sho
 
   const insigniaImage = getInsigniaImage();
 
+  // Card is interactive (clickable) when answer is hidden or in practice mode after reveal
+  const isInteractive = !showAnswer || (!showRating && showAnswer);
+
+  const progressLabel = total !== undefined
+    ? `${current} / ${total}`
+    : `#${current}`;
+
   return (
     <div className="flashcard-container">
       <div
         className={`flashcard${showAnswer ? ' flashcard--answered' : ''}`}
         onClick={handleCardClick}
+        role={isInteractive ? 'button' : undefined}
+        tabIndex={isInteractive ? 0 : undefined}
+        onKeyDown={isInteractive ? handleKeyDown : undefined}
+        aria-label={isInteractive ? (showAnswer ? t.nextInstruction : t.guessInstruction) : undefined}
       >
         <div className="flashcard-header">
-          <span className="category">{getCategoryName(rank.category, language)}</span>
-          <span className="progress">
+          <span className="category" aria-hidden="true">{getCategoryName(rank.category, language)}</span>
+          <span className="progress" aria-label={progressLabel} aria-live="polite">
             {total !== undefined ? `${current} / ${total}` : `#${current}`}
           </span>
         </div>
@@ -68,9 +86,13 @@ function Flashcard({ rank, onCorrect, onWrong, current, total, insigniaType, sho
           {!showAnswer ? (
             <>
               <div className="insignia-container">
-                <img src={insigniaImage} alt={rank.name} className="insignia-image" />
+                <img
+                  src={insigniaImage}
+                  alt={`${getCategoryName(rank.category, language)} – ${t.guessInstruction}`}
+                  className="insignia-image"
+                />
               </div>
-              <p className="instruction">{t.guessInstruction}</p>
+              <p className="instruction" aria-hidden="true">{t.guessInstruction}</p>
             </>
           ) : (
             <>
@@ -81,7 +103,7 @@ function Flashcard({ rank, onCorrect, onWrong, current, total, insigniaType, sho
                   <button className="correct-button" onClick={handleCorrect}>{t.correct}</button>
                 </div>
               ) : (
-                <p className="instruction">{t.nextInstruction}</p>
+                <p className="instruction" aria-hidden="true">{t.nextInstruction}</p>
               )}
             </>
           )}

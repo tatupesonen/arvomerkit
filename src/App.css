@@ -30,7 +30,7 @@
   display: flex;
   align-items: center;
   gap: 0.4rem;
-  color: rgba(255, 255, 255, 0.45);
+  color: rgba(255, 255, 255, 0.7);
   text-decoration: none;
   font-size: 0.75rem;
   transition: color 0.15s ease;
@@ -119,11 +119,18 @@
   max-width: 500px;
 }
 
+.selection-fieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
 .selection-title {
   font-size: 1.3rem;
   font-weight: 600;
   margin-bottom: 1.5rem;
   text-align: center;
+  width: 100%;
 }
 
 .checkbox-group {
@@ -553,6 +560,40 @@
   .instruction {
     font-size: 0.8rem;
   }
+}
+
+/* Focus indicators */
+.flashcard:focus-visible {
+  outline: 3px solid #a0b060;
+  outline-offset: 4px;
+}
+
+.lang-button:focus-visible {
+  outline: 3px solid white;
+  outline-offset: 2px;
+}
+
+.exit-button:focus-visible {
+  outline: 3px solid white;
+  outline-offset: 2px;
+}
+
+.primary-button:focus-visible,
+.secondary-button:focus-visible {
+  outline: 3px solid #a0b060;
+  outline-offset: 2px;
+}
+
+.correct-button:focus-visible,
+.wrong-button:focus-visible {
+  outline: 3px solid white;
+  outline-offset: 2px;
+}
+
+.footer-credit:focus-visible {
+  outline: 3px solid white;
+  outline-offset: 2px;
+  border-radius: 2px;
 }
 
 /* Light mode adjustments */
